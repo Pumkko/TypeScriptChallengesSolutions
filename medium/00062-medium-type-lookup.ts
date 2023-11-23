@@ -29,7 +29,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type LookUp<U extends Animal, T> = any
+// First watched the solution because i could not really find a working solution, then tinkered that one
+// I like using the second U extends Animal because it allows i find it cleaner that U extends { type: infer Sub }
+// with a solution like this if type gets renamed an error would not show on this specific part of the code
+type LookUp<U extends Animal, T extends U['type']> = U extends Animal ? U['type'] extends T ? U : never : never
+type T = LookUp<Animal, 'dog'>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
