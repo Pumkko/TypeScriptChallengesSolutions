@@ -12,7 +12,8 @@
 
 /* _____________ Your Code Here _____________ */
 
-type LengthOfString<S extends string> = any
+type ToTuple<S extends string> = S extends '' ? [] : S extends `${infer First}${infer Rest}` ? [First, ...ToTuple<Rest>] : [S]
+type LengthOfString<S extends string> = ToTuple<S>['length']
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -18,8 +18,14 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Flatten = any
+// Not so easy and i seriously thought it could be better but did not find a simpler solution even on github
 
+type Flatten<T extends unknown[]> = T['length'] extends 0 ? [] :
+  T extends [infer Type, ... infer Rest] ?
+    Type extends unknown[] ? [...Flatten<Type>, ...Flatten<Rest>] : [Type, ...Flatten<Rest>] : never
+
+type TX = [[1, 2], 3, 4, [[[5]]]]
+type T = Flatten<TX>
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
