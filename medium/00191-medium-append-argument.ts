@@ -23,7 +23,8 @@
 
 /* _____________ Your Code Here _____________ */
 
-type AppendArgument<Fn, A> = any
+// Failed to do that one, needed the solution, could figure out : ...args: [...Args, A]
+type AppendArgument<Fn extends Function, A> = Fn extends (...args: infer Args) => infer Ret ? (...args: [...Args, A]) => Ret : never
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
