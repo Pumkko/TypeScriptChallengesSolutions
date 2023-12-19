@@ -12,7 +12,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type ToNumber<S extends string> = any
+type ToNumber<S extends string> = S extends `${infer TNumber extends number}` ? TNumber : never
+
+type T = ToNumber<'0'>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

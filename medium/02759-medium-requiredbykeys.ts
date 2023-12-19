@@ -26,8 +26,17 @@
 */
 
 /* _____________ Your Code Here _____________ */
+type Merger<T> = {
+  [key in keyof T]: T[key]
+}
 
-type RequiredByKeys<T, K> = any
+type RequiredByKeys<T extends object, K extends keyof T = keyof T> = Merger<{
+  [key in K]-?: T[key]
+} & {
+  [key in Exclude<keyof T, K>]: T[key]
+}>
+
+type T = RequiredByKeys<User, 'name'>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

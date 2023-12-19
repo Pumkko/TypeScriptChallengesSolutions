@@ -19,7 +19,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type RequiredKeys<T> = any
+type GetRequired<T extends object> = {
+  [key in keyof T as T[key] extends Required<T>[key] ? key : never]: T[key]
+}
+
+type RequiredKeys<T extends object> = keyof GetRequired<T>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

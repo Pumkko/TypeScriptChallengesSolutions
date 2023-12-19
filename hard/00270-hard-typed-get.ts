@@ -33,7 +33,8 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Get<T, K> = string
+type Get<T, K> = K extends keyof T ? T[K] : K extends `${infer A}.${infer B}`
+  ? A extends keyof T ? Get<T[A], B> : never : never
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

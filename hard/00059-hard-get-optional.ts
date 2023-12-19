@@ -18,7 +18,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type GetOptional<T> = any
+type GetOptional<T extends object> = {
+  [key in keyof T as T[key] extends Required<T>[key] ? never : key]: T[key]
+}
+
+type T = GetOptional<{ foo: undefined; bar?: undefined }>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

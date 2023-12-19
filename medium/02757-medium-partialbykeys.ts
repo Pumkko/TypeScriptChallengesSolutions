@@ -26,10 +26,20 @@
 
 /* _____________ Your Code Here _____________ */
 
-type PartialByKeys<T, K> = any
+type Merger<T> = {
+  [key in keyof T]: T[key]
+}
+
+type PartialByKeys<T extends object, K extends keyof T = keyof T> = Merger<{
+  [key in K]?: T[key]
+} & {
+  [key in Exclude<keyof T, K>]: T[key]
+}>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
+
+type T = PartialByKeys<User, 'name'>
 
 interface User {
   name: string

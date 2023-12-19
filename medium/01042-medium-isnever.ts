@@ -23,7 +23,8 @@
 
 /* _____________ Your Code Here _____________ */
 
-type IsNever<T> = any
+// easy since i did a previous challenge that required it : https://github.com/type-challenges/type-challenges/issues/614
+type IsNever<T> = [T] extends [never] ? true : false
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

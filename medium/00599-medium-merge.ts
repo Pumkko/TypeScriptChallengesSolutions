@@ -27,7 +27,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Merge<F, S> = any
+type Merge<F extends object, S extends object> = {
+  [key in keyof F | keyof S]: key extends keyof S ? S[key] : key extends keyof F ? F[key] : never
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
